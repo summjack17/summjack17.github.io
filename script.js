@@ -27,7 +27,7 @@ function Cp(r, iga, igb, igc, igd, ige, igf, t) {
     console.log(cp);
 
     var div = document.getElementById("cp");
-    div.textContent = "Cp: " + cp + "kJ/kg-K";
+    div.textContent = "Cp: " + cp + " kJ/kg-K";
 }
 
 function h(r, iga, igb, igc, igd, ige, igf, kh, t) {
@@ -37,7 +37,7 @@ function h(r, iga, igb, igc, igd, ige, igf, kh, t) {
     console.log(h);
 
     var div = document.getElementById("h");
-    div.textContent = "h: " + h + "kJ/kg";
+    div.textContent = "h: " + h + " kJ/kg";
 
     return h;
 }
@@ -49,7 +49,7 @@ function u(r, hCalculated, t) {
     console.log(u);
 
     var div = document.getElementById("u");
-    div.textContent = "u: " + u + "kJ/kg";
+    div.textContent = "u: " + u + " kJ/kg";
 
     return u;
 }
@@ -61,7 +61,7 @@ function So(r, iga, igb, igc, igd, ige, igf, kso, t) {
     console.log(so);
 
     var div = document.getElementById("So");
-    div.textContent = "So: " + so + "kJ/kg-k";
+    div.textContent = "So: " + so + " kJ/kg-k";
 
     return so;
 }
