@@ -36,7 +36,7 @@
     padding: 15px;
 }
 
-.col-xs-5 {
+.col-xs-4 {
     font-size: 100%;
     border-right-style: solid;
     border-width: small; 
@@ -44,7 +44,7 @@
     max-width: 150px;
 }
 
-.col-xs-7 {
+.col-xs-8 {
     flex-grow: 1;
 }
 
