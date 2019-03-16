@@ -1,0 +1,73 @@
+.container {
+    max-width: 500px;
+}
+
+.title {
+    padding-bottom: 10px;
+    text-align: center;
+    color: darkslategray
+}
+
+.row {
+    display: flex;
+}
+
+.firstRow {
+    border-style: solid;
+    border-width: small; 
+    border-color: lightslategray
+}
+
+.secondRow {
+    border-style: solid;
+    border-width: small;
+    border-top-width: 0px;
+    border-color: lightslategray;
+    max-height: 100%;
+}
+
+.row-thic1 {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.row-thic2 {
+    height: 250px;
+    padding: 15px;
+}
+
+.col-xs-4 {
+    font-size: 100%;
+    border-right-style: solid;
+    border-width: small; 
+    border-color: lightslategray;
+    max-width: 150px;
+}
+
+.col-xs-8 {
+    flex-grow: 1;
+}
+
+.gasTitle {
+    margin-top: 0px;
+}
+
+.container1 {
+    text-align: left;
+    max-height: 100%;
+    padding: 4%;
+}
+
+.container2 {
+    padding: 8px;
+    
+}
+
+.text-box {
+    width: 84px;
+    height: 29px
+}
+
+.btn {
+    margin-bottom: 20px;
+}
