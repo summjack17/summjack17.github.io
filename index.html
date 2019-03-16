@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<title>Bootstrap Example</title>
-	<link rel="stylesheet" type="text/css" href="style.css" />
-	<script type="text/javascript" src="script.js">
-	</script>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-	</script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
-	</script>
+  <title>Bootstrap Example</title>
+  <link rel = "stylesheet"
+   type = "text/css"
+   href = "style.css" />
+   <script type="text/javascript" src="script.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-
 <body style="background-color:cadetblue;">
 
-	<div class="container">
-		<h1 class="title"><u>Ideal Gas Calculator</u></h1>
-		<div class="row firstRow" style="background-color:darkslategray; color:white;">
-			<div class="col-xs-4 row-thic1"><u>Input</u></div>
-			<div class="col-xs-8 row-thic1"><u>Output</u></div>
-		</div>
-		<div class="row secondRow" style="background-color:darkslategray; color:white;">
-			<div class="col-xs-4 row-thic2">
-				<div class="container1">
-					<h5 class="gas gasTitle"><u>Gas</u></h5>
-					<div class="radio">
-						<label><input type="radio" id="o2" name="optradio" checked value="O2">O2</label>
+<div class="container">
+  <h1 class="title"><u>Jack's Calculator</u></h1>
+  <div class="row firstRow" style="background-color:darkslategray; color:white;">
+    <div class="col-xs-4 row-thic1"><u>Input</u></div>
+    <div class="col-xs-8 row-thic1"><u>Output</u></div>
+  </div>
+  <div class="row secondRow" style="background-color:darkslategray; color:white;">
+    <div class="col-xs-4 row-thic2">
+        <div class="container1">
+            <h5 class="gas gasTitle"><u>Gas</u></h5>
+            <div class="radio">
+                <label><input type="radio" id="o2" name="optradio" checked value="O2">O2</label>
             </div>
             <div class="radio">
                 <label><input type="radio" id="air" name="optradio" value="Air">Air</label>
@@ -37,10 +34,13 @@
                 <label><input type="radio" id="co2" name="optradio" value="CO2">CO2</label>
             </div>
             <h5 class="temp"><u>Tempature</u></h5>
+            <div class="row">
             <div class="form-group text-box">
-                <input type="text" class="form-control" id="temp">
+                <input style="float:left" type="text" class="form-control" id="temp"><h5 class="row">K</h5>
+            </div>
             </div>
             <input type="button" class="btn btn-default" value="Calculate" onclick="calculate()">
+            
         </div>
     </div>
     <div class="col-xs-8 row-thic2">
