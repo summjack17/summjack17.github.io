@@ -65,9 +65,15 @@
 
 .text-box {
     width: 84px;
-    height: 29px
+    height: 29px;
+    padding-left: 14.5px
 }
 
 .btn {
     margin-bottom: 20px;
+}
+
+.fixit {
+    float: right;
+    display: inline;
 }
