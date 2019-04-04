@@ -1,70 +1,272 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Just a Tab</title>
+    <meta name="AUTHOR" content="Edited By Jack Summers and Friends original code by Dr. Crown">
+    <script language="JavaScript">
 
-<head>
-	<title>Bootstrap Example</title>
-	<link rel="stylesheet" type="text/css" href="style.css" />
-	<script type="text/javascript" src="script.js">
-	</script>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-	</script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js">
-	</script>
-</head>
+function igas(gas,temperature){
+  var name=["Air","O2","N2","CO","CO2","H2","H2O","SO2","CH4","C2H2","C2H4","He","Ne","Ar"];
+// The molar mass, coefficients (a,b,c,d,e,f), and offset values (kcp,kh,kso,kPr,kvr) for the first three gases are given.  Enter the coefficients a,b,c,d,e,f  
+var prop=[
+    
+    //The different Gases
+    //Air 
+    [28.961913,3.671223,-0.00160656,0.00000438132,-0.00000000359509,1.29874E-12,-1.76425E-16,0.0012557,-4.623238315,-4.218718,271.135363,9.997482363],
+    
+    //O2
+    [32,3.626,-0.001878,0.000007055,-0.000000006764,0.000000000002156,14.4E-15,0,.9,1.12,1E8,1],
+    
+    //N2
+    [28.01,3.675,-0.001208,0.000002324,-0.00000000632,-0.000000000000226,0,0.0004,5.421,0.7,1E8,1],
+    
+    //CO
+    [28.01,3.710,-0.001619,0.000003692,-0.000000002032,0.00000000000024,0,0,-6,.88,1E8,1],
+    
+    //CO2
+    [44.01,2.401,0.008735,-0.000006607,0.000000002002,0,0,0,14.72,1.83,1E8,1],
+    
+    //H2
+    [2.016,3.057,0.002677,-0.00000581,0.000000005521,-0.0000000000001812,0,0,0,0,1E8,1],
+    
+    //H2O
+    [18.02,4.070,-0.001108,0.000004152,-0.000000002964,0.0000000000000807,0,0,-1.92,0.147,1E8,1],
+    
+    //SO2
+    [64.06,3.267,0.005324,0.000000684,-0.000000005281,0.0000000000002559,0,0,0,0,1E8,1],
+     
+    //CH4
+    [16.04,3.826,-0.003979,0.0000024558,-0.000000022733,0.0000000000006963,0,0,0,0,1E8,1],
+     
+    //C2H2
+    [26.04,1.410,0.019057,-0.0000024501, 0.000000016391,-0.000000000004135,0,0,0,0,1E8,1],
+     
+    //C2H4
+    [28.05,1.426,0.011383,0.000007989,-0.000000016254,0.000000000006749,0,0,0,0,1E8,1],
+     
+    //He
+    [4.003,2.5,0,0,0,0,0,0,0,0,1E8,1],
+     
+    //Ne
+    [20.1797,2.5,0,0,0,0,0,0,0,0,1E8,1],
+    
+    //Ar
+    [39.948,2.5,0,0,0,0,0,0,0,0,1E8,1]
+    
+  ];
+    
+    //For returning values
+    g=gas;
+    
+    T=temperature; 
+    
+    //Function for each gas
+    //Mass
+    R=8.314/prop[g][0];
+    
+    //Specific Heat
+    Cp = R*(prop[g][1] +  prop[g][2]* T + prop[g][3] * Math.pow(T,2) + prop[g][4] * Math.pow(T,3) + prop[g][5] * Math.pow(T,4) + prop[g][6] * Math.pow(T, 5))+prop[g][7];
+    
+    //Enthalpy
+    h = R * ( prop[g][1]*T +  (prop[g][2]* Math.pow(T,2))/2 + (prop[g][3] * Math.pow(T,3))/3 + (prop[g][4] * Math.pow(T,4))/4 + (prop[g][5] * Math.pow(T,5))/5 + (prop[g][6] * Math.pow(T, 6))/6 )+prop[g][8];
+    
+    //Internal Energy
+    u = h - (R * T);
+    
+    //Entropy
+    s0 = R * (prop[g][1] * Math.log(T) + prop[g][2] * T + (prop[g][3] * Math.pow(T, 2))/2 + (prop[g][4] * Math.pow(T, 3))/3 + (prop[g][5] * Math.pow(T, 4))/4 + (prop[g][6] * Math.pow(T, 5))/5 ) +prop[g][9];
+    
+    //Pressure
+    Pr = (Math.exp((s0 / R))) /prop[g][10];
+    
+    //Specific Volume
+    Vr = ((R * T) / Pr) * prop[g][11];
+    
+    
+    Cv = Cp-R;
+    
+    k = Cp/Cv;
+                
+                
+                
+                
+  //No reason to edit below
+  //Returns all variables to be called back
+  var values=[name[gas],R,Cp,Cv,k,h,u,s0,Pr,Vr]
+  return values;  
+}
 
-<body style="background-color:cadetblue;">
+function invgas(gas, property, property_value){
+//  Properties based on order of returned values from igas
+    //Besction function
+    //Error with using large value for s0
+    names=["gas","R","Cp","Cv","k","h","u","s0","Pr","vr"]
+    Gp=names.indexOf(property);
+	Gv=property_value;
+	GX = 300;
+    SX = 100;
+	if (property=="vr") {SX=-SX;}
+	values=igas(gas, GX);
+    CY = values[Gp];
+    ErrMax = (Gv / 100000);
+    STEP = SX;
+    KK = 0;
+    Kmax = 500;
+    do{
+        while ((CY - Gv) > ErrMax){
+          GX = GX - STEP;
+		  values=igas(gas, GX);
+		  CY = values[Gp];
+          if ((CY - Gv) < 0){
+		    STEP = STEP / 2;
+		  }
+          if (KK > Kmax){
+		    break;
+		  } 
+ 	      else {
+  		    KK = KK + 1;
+		  }	
+        }
+        while ((CY - Gv) < (-ErrMax)){
+          GX = GX + STEP
+          values=igas(gas, GX);
+		  CY = values[Gp];
+          if ((-Gv) > 0){
+		    STEP = STEP / 2;
+		  }	
+          if (KK > Kmax){
+		    break; 
+		  }
+		  else {
+		    KK = KK + 1;
+		  }
+        }
+    } while (Math.abs(CY - Gv) > ErrMax);
+    return GX;
+}
 
-	<div class="container">
-		<h1 class="title"><u>Ideal Gas Calculator</u></h1>
-		<div class="row firstRow" style="background-color:darkslategray; color:white;">
-			<div class="col-xs-4 row-thic1"><u>Input</u></div>
-			<div class="col-xs-8 row-thic1"><u>Output</u></div>
-		</div>
-		<div class="row secondRow" style="background-color:darkslategray; color:white;">
-			<div class="col-xs-4 row-thic2">
-				<div class="container1">
-					<h5 class="gas gasTitle"><u>Gas</u></h5>
-					<div class="radio">
-						<label><input type="radio" id="o2" name="optradio" checked value="O2">O2</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" id="air" name="optradio" value="Air">Air</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" id="co2" name="optradio" value="CO2">CO2</label>
-            </div>
-            <h5 class="temp"><u>Tempature</u></h5>
-            <div class="form-group text-box">
-                <input type="text" class="form-control" id="temp">
-            </div>
-            <input type="button" class="btn btn-default" value="Calculate" onclick="calculate()">
-        </div>
-    </div>
-    <div class="col-xs-8 row-thic2">
-        <div class="container2" id="cp">
-            Cp:
-        </div>
-        <div class="container2" id="h">
-            h:
-        </div>
-        <div class="container2" id="u">
-            u:
-        </div>
-        <div class="container2" id="So">
-            So:
-        </div>
-        <div class="container2" id="Pr">
-            Pr:
-        </div>
-        <div class="container2" id="Vr">
-            Vr:
-        </div>
-    </div>
-  </div>
-</div>
+function solveIgas(form) {
+var selGas = document.getElementById("selGas");
+var gas = selGas.value;
+var selProp = document.getElementById("selProp");
+var gprop = selProp.value;
+var gpropvalue = eval(form.gpropvalue.value);
+if (gprop=="T"){
+   T1=gpropvalue;
+}
+else {   
+   T1=invgas(gas,gprop,gpropvalue).toFixed(3);
+}
 
-</body>
+if (document.getElementById('CAS').checked){
+  values=igas(gas,300)
+  R=values[1].toFixed(4);
+  Cp=values[2].toFixed(4);
+  Cv=values[3].toFixed(4);
+  k=values[4].toFixed(4);
+  h=values[5];
+  h=eval(h+Cp*(T1-300)).toFixed(2);
+  u=values[6];
+  u=eval(u+Cv*(T1-300)).toFixed(2);
+  message = "Constant Specific Heats (300K) Analysis for "+values[0];
+  message = message + "\n T="+T1;
+  message = message + "\n R="+R;
+  message = message + "\n Cp="+Cp;
+  message = message + "\n Cv="+Cv;
+  message = message + "\n k="+k;
+  message = message + "\n h="+h;
+  message = message + "\n u="+u;  
+}
+else {
+  // Air Standard
+  values=igas(gas,T1)
+  R=values[1].toFixed(4);
+  Cp=values[2].toFixed(4);
+  Cv=values[3].toFixed(4);
+  k=values[4].toFixed(4);
+  h=values[5].toFixed(2);
+  u=values[6].toFixed(2);
+  s0=values[7].toFixed(4);
+  Pr=values[8].toFixed(4);
+  Vr=values[9].toFixed(5);
+  message = "Variable Specific Heats Analysis for "+values[0];
+  message = message + "\n T="+T1;
+  message = message + "\n R="+R;
+  message = message + "\n Cp="+Cp;
+  message = message + "\n Cv="+Cv;
+  message = message + "\n k="+k;
+  message = message + "\n h="+h;
+  message = message + "\n u="+u;  
+  message = message + "\n s0="+s0;  
+  message = message + "\n Pr="+Pr;  
+  message = message + "\n vr="+Vr;  
+}
+form.message.value = message;
+}
+
+//--></script>
+  </head>
+  <body style="background-color: #5f9ea0; color: #333;" alink="navy" link="navy" vlink="navy">
+    <div align="center">
+      <h2>Ideal Gas Properties<br>Calculator</h2>
+      <form method="post" name="f2" style="color: white;">
+        <input type="radio" id="AS" 
+                   name="drone" value="AS" checked />
+        <label for="AS">Air-Standard</label>
+        <input type="radio" id="CAS" 
+                   name="drone" value="CAS" />
+        <label for="CAS">Cold Air-Standard</label>
+		<table border="4" style="color: white;">
+          <tbody>
+            <tr>
+			<td align="center">Gas</td>
+			<td align="center">
+  			  <select id = "selGas">
+				<option value = 0>Air</option>
+				<option value = 1>O<sub>2</sub></option>
+				<option value = 2>N<sub>2</sub></option>
+				<option value = 3>CO</option>
+				<option value = 4>CO<sub>2</sub></option>
+				<option value = 5>H<sub>2</sub></option>
+				<option value = 6>H<sub>2</sub>O</option>
+				<option value = 7>SO<sub>2</sub></option>
+				<option value = 8>CH<sub>4</sub></option>
+				<option value = 9>C<sub>2</sub>H<sub>2</sub></option>
+				<option value = 10>C<sub>2</sub>H<sub>4</sub></option>
+				<option value = 11>He</option>
+				<option value = 12>Ne</option>
+				<option value = 13>Ar</option>
+			  </select>     
+			</tr>
+            <tr>
+			<td align="center">Given Property</td>
+			<td align="center">
+  			  <select id = "selProp">
+				<option value = "T">T (K)</option>
+				<option value = "h">h (kJ/kg)</option>
+				<option value = "u">u (kJ/kg)</option>
+				<option value = "s0">s0 (kJ/kg-K)</option>
+				<option value = "Pr">Pr</option>
+				<option value = "vr">vr</option>
+			  </select>     
+			</tr>
+            <tr>
+              <td align="center">Given Value</td>
+              <td align="center"><input name="gpropvalue" size="6" type="text";></td>
+            </tr>
+            <tr>
+              <td colspan="2" align="center">
+              
+              <input style="font-size : 25px; width: 80%; height: 80%;" value="Calculate Properties" onclick="javascript:solveIgas(this.form)" type="button">
+              
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" align="center"><textarea name="message" rows="18" cols="48" wrap="virtual"></textarea></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>   
+  </body>
 </html>
